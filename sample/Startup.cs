@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using WebEssentials.AspNetCore.OutputCaching;
-using WebMarkupMin.AspNetCore2;
+using WebMarkupMin.AspNetCoreLatest;
 
 namespace Sample
 {
@@ -13,7 +12,7 @@ namespace Sample
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddOutputCaching(options =>
             {
                 options.Profiles["default"] = new OutputCacheProfile
@@ -37,7 +36,6 @@ namespace Sample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseBrowserLink();
             app.UseDeveloperExceptionPage();
 
             app.UseOutputCaching();
